@@ -16,6 +16,7 @@ Enter the LHOST for the reverse shell:
 Do you want to start a netcat listener? (yes/no): 
 // If user enters no, do not execute netcat listener portion of workflow
 Enter the LPORT for the reverse shell:
+Enter the LPORT for the persistent reverse shell:
 
 Workflow Post Authenticated RCE:
 Python script will take variables and modify the template post request
@@ -35,6 +36,7 @@ Enter the victim port (default is 80):
 Do you want to start a netcat listener? (yes/no):
 Enter the LHOST for the reverse shell:
 Enter the LPORT for the reverse shell:
+Enter the LPORT for the persistent reverse shell:
 
 Workflow CSRF to RCE:
 --> python script changes the poc.html template code victim IP web address. If user chooses default, then the poc.html code changes the host only.
