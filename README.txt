@@ -35,14 +35,9 @@ Enter the victim port (default is 80):
 Do you want to start a netcat listener? (yes/no):
 Enter the LHOST for the reverse shell:
 Enter the LPORT for the reverse shell:
-Do you want to host the CSRF poc? (yes/no):
-Enter the port to host the CSRF poc on: 
-// If user says no, start netcat listener only
-// If user says yes, start netcat listener and run python -m http.server [user variable port]
 
 Workflow CSRF to RCE:
 --> python script changes the poc.html template code victim IP web address. If user chooses default, then the poc.html code changes the host only.
 --> python script changes the poc.html template code LHOST default value in reverse shell one liner
 --> python script changes the poc.html template code LPORT default value in reverse shell one liner
---> python script starts netcat listener only OR if CSRF poc variable user input = yes then
---> python script starts netcat listener AND runs python server to host poc.html
+--> python script starts netcat listener
